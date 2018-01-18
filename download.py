@@ -2,6 +2,7 @@
 import ssl
 from mimetypes import *
 from urllib.request import *
+from urllib.parse import *
 from urllib.error import *
 
 from . import shared
@@ -35,16 +36,32 @@ def install_proxy():
 
   # haoxuany - appears to be a problem with Mac Python, and the
   # version of python runtime shipped with Anki
+  # even worse is that during ssl verification host name matching is
+  # dumb and broken: https://bugs.python.org/issue28414
   # as if working in China isn't bad enough, gross gross hack here:
   # https://stackoverflow.com/questions/27835619/urllib-and-ssl-certificate-verify-failed-error
   if config["assign_https_context"]:
     ssl._create_default_https_context = ssl._create_unverified_context
 
+# string -> string
+# haoxuany - Python doesn't handle any of this properly, nor does this. See:
+# https://stackoverflow.com/questions/4389572/how-to-fetch-a-non-ascii-url-with-python-urlopen/29231552
+def iri_to_uri(s_url):
+  parse_result = urlparse(unquote(s_url))
+  l_s_path = []
+  for i, s_part in enumerate(parse_result):
+    if i == 1:
+      s_part = s_part.encode("idna").decode("utf-8")
+    else:
+      s_part = quote(s_part.encode("utf-8"), safe = "/;%[]=:$&()+,!?*@'~")
+    l_s_path.append(s_part)
+  return urlunparse(ParseResult(*l_s_path))
+
 # string -> (byte * string option) + string as
 # (byte * string option) option * (string option)
 # because python is stupid and has no sums
 def fetch_page(s_url):
-  request = Request(s_url, headers = shared.d_s_SEND_HEADERS)
+  request = Request(iri_to_uri(s_url), headers = shared.d_s_SEND_HEADERS)
 
   install_proxy()
   # haoxuany - unfortunately we do this per request, since
@@ -62,10 +79,5 @@ def fetch_page(s_url):
       return ((b_page, so_ext), None)
   except (URLError, HTTPError) as e:
     return (None, e.reason) # must this be a string? bleh
-  except UnicodeEncodeError:
-    # haoxuany - oh lord, SSL verification is messed up with IDNA hostname,
-    # so I'm not even going to bother for Python < 3.6, screw this.
-    return (None,
-        "Complicated Python B.S., see: https://bugs.python.org/issue28414")
   # haoxuany - apparently other errors can occur, and
   # other exceptions thrown. Not my fault. Docs didn't say which.

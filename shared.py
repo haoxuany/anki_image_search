@@ -146,10 +146,13 @@ s_PROXY_WARN = \
 although if you need to mess with these settings you probably need them for all requests anyway.
 If you need a complicated proxy setup, you should probably use a management tool. Proceed with caution.'''
 s_PROXY_HTTPS_VERIFY_BYPASS_INFO = \
+"You will likely want this, but disabled by default for security reasons. "\
 "For more information, see <a href=\""\
 "https://stackoverflow.com/questions/27835619/"\
 "urllib-and-ssl-certificate-verify-failed-error"\
-"\">this</a>"
+"\">this</a> and <a href=\""\
+"https://bugs.python.org/issue28414"\
+"\">this</a>."
 
 s_SEARCH_IMAGE_SHORTCUT = "Ctrl+f"
 s_PREV_IMAGE_SHORTCUT = "Ctrl+k"
