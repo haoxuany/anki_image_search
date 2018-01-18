@@ -108,6 +108,29 @@ def network_dialog():
 
   dialog.exec_()
 
+def about_dialog():
+  dialog = QDialog(mw)
+  dialog.setWindowTitle("About")
+
+  about = QLabel(shared.s_ABOUT)
+  about.setTextFormat(Qt.RichText)
+  about.setTextInteractionFlags(Qt.TextBrowserInteraction)
+  about.setOpenExternalLinks(True)
+
+  ok = QDialogButtonBox(QDialogButtonBox.Ok)
+  ok.clicked.connect(dialog.close)
+
+  def layout_everything():
+    layout = QVBoxLayout()
+    dialog.setLayout(layout)
+
+    layout.addWidget(about)
+    layout.addWidget(ok)
+
+  layout_everything()
+
+  dialog.exec_()
+
 # unit -> unit
 def buildMenu():
   menu = QMenu(mw)
@@ -117,6 +140,7 @@ def buildMenu():
   # (string, string option, unit -> unit) list
   l_t_ssofuu_MENU_ITEMS = \
     [ ("Network Config", None, network_dialog)
+    , ("About", None, about_dialog)
     ]
 
   for elem in l_t_ssofuu_MENU_ITEMS:

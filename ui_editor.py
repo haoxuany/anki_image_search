@@ -108,7 +108,7 @@ def hook_image_buttons(righttopbtns, editor):
     ]
 
   for (s_icon, s_cmd, s_tip, s_key, func) in l_t_ssssuu_IMAGE_BUTTONS:
-    s_icon_path = shared.path_to("icons", s_icon + "-2x.png")
+    s_icon_path = shared.path_to("images", s_icon + "-2x.png")
     s_tip = _(s_tip + " (" + s_key + ")")
     righttopbtns.insert(i_more_idx, editor.addButton(
       s_icon_path, s_cmd, func, tip=s_tip, keys=s_key))

@@ -154,6 +154,21 @@ s_PROXY_HTTPS_VERIFY_BYPASS_INFO = \
 "https://bugs.python.org/issue28414"\
 "\">this</a>."
 
+s_GOOGLE_IMG = path_to("images", "powered_by_google_on_white.png")
+
+s_ABOUT = \
+'''You can track project progress and updates on
+<a href="https://github.com/haoxuany/anki_image_search">GitHub</a>. <br>
+I don't think this actually violates Google's Terms of Service, <br>
+but just in case, and since Google is pretty awesome anyway,
+here's the Powered by Google logo:<br>
+<img src="%s" /><br>
+Editor icons are provided by
+<a href="https://useiconic.com/open">Open Iconic</a>
+, and licensed under the MIT License. <br>
+The entire project (Anki Image Search) is licensed under GPL version 2.
+''' % s_GOOGLE_IMG
+
 s_SEARCH_IMAGE_SHORTCUT = "Ctrl+f"
 s_PREV_IMAGE_SHORTCUT = "Ctrl+k"
 s_NEXT_IMAGE_SHORTCUT = "Ctrl+j"
