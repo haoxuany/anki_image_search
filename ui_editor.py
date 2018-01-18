@@ -49,16 +49,12 @@ def display_image(editor, f_buffer_succ):
     (ibo_current_buffer and ibo_current_buffer.s_query == s_query)
 
   if b_changed:
-    mw.progress.start()
     ibo_current_buffer = ImgBuffer(s_query)
-    mw.progress.finish()
   else:
     if not f_buffer_succ():
       return
 
-  mw.progress.start()
   bboo_result = ibo_current_buffer.get()
-  mw.progress.finish()
   if not bboo_result:
     report("Couldn't load any of the images")
     return

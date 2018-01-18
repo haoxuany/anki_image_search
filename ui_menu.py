@@ -67,9 +67,7 @@ def network_dialog():
     config_bkp = shared.config_netconfig
     shared.config_netconfig = config
     start = time.time()
-    mw.progress.start(immediate=True)
     (_, so_error) = fetch_page("https://www.google.com")
-    mw.progress.finish()
     if so_error:
       showWarning("Connection failed with %s" % so_error)
     else:
