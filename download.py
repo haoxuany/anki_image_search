@@ -62,5 +62,10 @@ def fetch_page(s_url):
       return ((b_page, so_ext), None)
   except (URLError, HTTPError) as e:
     return (None, e.reason) # must this be a string? bleh
+  except UnicodeEncodeError:
+    # haoxuany - oh lord, SSL verification is messed up with IDNA hostname,
+    # so I'm not even going to bother for Python < 3.6, screw this.
+    return (None,
+        "Complicated Python B.S., see: https://bugs.python.org/issue28414")
   # haoxuany - apparently other errors can occur, and
   # other exceptions thrown. Not my fault. Docs didn't say which.
