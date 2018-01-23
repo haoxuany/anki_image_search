@@ -1,6 +1,8 @@
 # Anki Image Search
 Basically scraps Google Images and places them on your card. This only works for Anki 2.1.
 
+You should follow the instructions [here](https://ankiweb.net/shared/info/885589449) for installation.
+
 ## How
 On the card editor (from either the "Add" or "Browse" dialog), there are three buttons added right before the **More** button on the upper right portion of the editor: **Search Image**, **Previous Image** and **Next Image**.
 
